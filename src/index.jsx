@@ -8,8 +8,9 @@ import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import * as actions from './actions';
 import reducers from './reducers';
 import App from './components/App';
@@ -31,15 +32,17 @@ if (registeredUsername === undefined) {
 }
 
 /* eslint-disable no-underscore-dangle */
+// const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
+// const devtoolMiddleware = ext && ext();
+
 const store = createStore(
   reducers,
   {
     channels: { byId: initialChannels, allIds: initialAllids, currentChannelId },
     messages: { byId: initialMessages, allIds: initialMessagesIds },
   },
-  compose(
+  composeWithDevTools(
     applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   ),
 );
 /* eslint-enable */
