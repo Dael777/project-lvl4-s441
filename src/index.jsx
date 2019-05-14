@@ -10,6 +10,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import * as actions from './actions';
 import reducers from './reducers';
 import App from './components/App';
 
@@ -29,12 +30,6 @@ if (registeredUsername === undefined) {
   cookies.set('name', randomName);
 }
 
-const socket = io('/', { forceNew: false });
-
-socket.on('newMessage', ({ data: { attributes } }) => {
-  console.log(attributes);
-});
-
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
   reducers,
@@ -48,6 +43,12 @@ const store = createStore(
   ),
 );
 /* eslint-enable */
+
+const socket = io('/', { forceNew: false });
+
+socket.on('newMessage', ({ data: { attributes } }) => {
+  store.dispatch(actions.addMessage({ attributes }));
+});
 
 const container = document.querySelector('#chat');
 ReactDOM.render(
