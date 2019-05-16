@@ -14,11 +14,11 @@ const channels = handleActions({
 }, { byId: {}, allIds: [], currentChannelId: null });
 
 const messages = handleActions({
-  [actions.addMessage](state, { payload: { attributes } }) {
+  [actions.addMessage](state, { payload: { message } }) {
     const { byId, allIds } = state;
     return {
-      byId: { ...byId, [attributes.id]: attributes },
-      allIds: [...allIds, attributes.id],
+      byId: { ...byId, [message.id]: message },
+      allIds: [...allIds, message.id],
     };
   },
 }, { byId: {}, allIds: [] });

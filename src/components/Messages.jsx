@@ -13,7 +13,12 @@ const Messages = (props) => {
   const { messages } = props;
   return (
     <div>
-      {messages.map(message => <div key={message.id}>{message.messages}</div>)}
+      {messages.map(message => (
+        <div key={message.id}>
+          <strong>{message.author}: </strong>
+          {message.message}
+        </div>
+      ))}
     </div>
   );
 };

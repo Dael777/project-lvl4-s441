@@ -2,26 +2,22 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import * as actions from '../actions';
+import UserNameContext from '..';
 
 const mapStateToProps = state => state;
 
-const actionCreators = {
-  addMessage: actions.addMessage,
-};
-
 const NewMessageForm = (props) => {
-  const createMessage = async ({ text }) => {
+  const createMessage = userName => async ({ text }) => {
     const { reset } = props;
     try {
-      const response = await axios.post('/api/v1/channels/1/messages', {
+      await axios.post('/api/v1/channels/1/messages', {
         data: {
           attributes: {
-            messages: text,
+            message: text,
+            author: userName,
           },
         },
       });
-      // console.log(response.data);
     } catch (error) {
       throw error;
     }
@@ -30,14 +26,18 @@ const NewMessageForm = (props) => {
 
   const { handleSubmit } = props;
   return (
-    <form className="form-inline" onSubmit={handleSubmit(createMessage)}>
-      <Field name="text" className="form" required component="input" type="text" />
-      <input type="submit" className="btn btn-primary btn-sm" value="Send" />
-    </form>
+    <UserNameContext.Consumer>
+      { ({ userName }) => (
+        <form className="form-inline" onSubmit={handleSubmit(createMessage(userName))}>
+          <Field name="text" className="form" required component="input" type="text" />
+          <input type="submit" className="btn btn-primary btn-sm" value="Send" />
+        </form>
+      )}
+    </UserNameContext.Consumer>
   );
 };
 
-const connectedForm = connect(mapStateToProps, actionCreators)(NewMessageForm);
+const connectedForm = connect(mapStateToProps)(NewMessageForm);
 export default reduxForm({
   form: 'newMessage',
 })(connectedForm);

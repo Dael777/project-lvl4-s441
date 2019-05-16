@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import * as actions from './actions';
 import reducers from './reducers';
 import App from './components/App';
@@ -26,15 +26,15 @@ const initialMessagesIds = messages.map(message => message.id);
 const initialMessages = _.zipObject(initialMessagesIds, messages);
 
 const registeredUsername = cookies.get('name');
+const userName = !registeredUsername ? faker.name.findName() : registeredUsername;
 if (registeredUsername === undefined) {
-  const randomName = faker.name.findName();
-  cookies.set('name', randomName);
+  cookies.set('name', userName);
 }
 
-/* eslint-disable no-underscore-dangle */
-// const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
-// const devtoolMiddleware = ext && ext();
+const UserNameContext = React.createContext({ userName });
+export default UserNameContext;
 
+/* eslint-disable no-underscore-dangle */
 const store = createStore(
   reducers,
   {
@@ -50,13 +50,16 @@ const store = createStore(
 const socket = io('/', { forceNew: false });
 
 socket.on('newMessage', ({ data: { attributes } }) => {
-  store.dispatch(actions.addMessage({ attributes }));
+  const message = { ...attributes };
+  store.dispatch(actions.addMessage({ message }));
 });
 
 const container = document.querySelector('#chat');
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <UserNameContext.Provider value={{ userName }}>
+      <App />
+    </UserNameContext.Provider>
   </Provider>,
   container,
 );
