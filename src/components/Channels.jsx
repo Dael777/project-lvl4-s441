@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
   return props;
 };
 
+@connect(mapStateToProps)
 class Channels extends React.Component {
   render() {
     const { channels, currentChannelId } = this.props;
@@ -21,4 +22,4 @@ class Channels extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(Channels);
+export default Channels;
