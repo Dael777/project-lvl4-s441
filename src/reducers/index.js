@@ -4,11 +4,12 @@ import { reducer as formReducer } from 'redux-form';
 import * as actions from '../actions';
 
 const channels = handleActions({
-  [actions.changeChannel](state, { payload: { channel } }) {
+  [actions.changeChannel](state, { payload: { channelId } }) {
     const { byId, allIds } = state;
     return {
-      byId: { ...byId },
-      allIds: [...allIds, channel.id],
+      byId,
+      allIds,
+      currentChannelId: channelId,
     };
   },
 }, { byId: {}, allIds: [], currentChannelId: null });

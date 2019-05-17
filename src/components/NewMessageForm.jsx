@@ -5,15 +5,20 @@ import axios from 'axios';
 import cn from 'classnames';
 import UserNameContext from '..';
 
-const mapStateToProps = state => state;
+const mapStateToProps = (state) => {
+  const props = {
+    currentChannelId: state.channels.currentChannelId,
+  };
+  return props;
+};
 
 @reduxForm({ form: 'newMessage' })
 @connect(mapStateToProps)
 class NewMessageForm extends React.Component {
   createMessage = userName => async ({ text }) => {
-    const { reset } = this.props;
+    const { currentChannelId, reset } = this.props;
     try {
-      await axios.post('/api/v1/channels/1/messages', {
+      await axios.post(`/api/v1/channels/${currentChannelId}/messages`, {
         data: {
           attributes: {
             message: text,

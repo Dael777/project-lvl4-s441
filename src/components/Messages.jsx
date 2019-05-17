@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { messagesSelector } from '../selectors';
+import { channelMessagesSelector } from '../selectors';
 
 const mapStateToProps = (state) => {
   const props = {
-    messages: messagesSelector(state),
+    messages: channelMessagesSelector(state),
   };
   return props;
 };
