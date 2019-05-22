@@ -54,6 +54,12 @@ socket.on('newMessage', ({ data: { attributes } }) => {
   store.dispatch(actions.addMessage({ message }));
 });
 
+socket.on('newChannel', ({ data: { attributes } }) => {
+  const channel = { ...attributes };
+  store.dispatch(actions.handleModal({ status: false }));
+  store.dispatch(actions.addChannel({ channel }));
+});
+
 const container = document.querySelector('#chat');
 ReactDOM.render(
   <Provider store={store}>

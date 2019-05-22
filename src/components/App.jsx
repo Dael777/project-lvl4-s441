@@ -6,6 +6,7 @@ import {
 import { channelsSelector } from '../selectors';
 import Channels from './Channels';
 import Messages from './Messages';
+import NewChannel from './NewChannel';
 import NewMessageForm from './NewMessageForm';
 
 const mapStateToProps = (state) => {
@@ -19,13 +20,13 @@ const mapStateToProps = (state) => {
 @connect(mapStateToProps)
 class App extends React.Component {
   render() {
-    const { channels, currentChannelId } = this.props;
     return (
       <Container>
         <Row>
           <Col xs={4}>
             <ListGroup as="ul">
               <Channels />
+              <NewChannel />
             </ListGroup>
           </Col>
           <Col xs={8}>

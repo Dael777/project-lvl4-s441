@@ -4,6 +4,17 @@ import { reducer as formReducer } from 'redux-form';
 import * as actions from '../actions';
 
 const channels = handleActions({
+  [actions.addChannel](state, { payload: { channel } }) {
+    const { byId, allIds, currentChannelId } = state;
+    return {
+      byId: {
+        ...byId,
+        [channel.id]: channel,
+      },
+      allIds: [...allIds, channel.id],
+      currentChannelId,
+    };
+  },
   [actions.changeChannel](state, { payload: { channelId } }) {
     const { byId, allIds } = state;
     return {
@@ -24,8 +35,17 @@ const messages = handleActions({
   },
 }, { byId: {}, allIds: [] });
 
+const modals = handleActions({
+  [actions.handleModal](state, { payload: { status } }) {
+    return {
+      status,
+    };
+  },
+}, { status: false });
+
 export default combineReducers({
   channels,
   messages,
+  modals,
   form: formReducer,
 });
