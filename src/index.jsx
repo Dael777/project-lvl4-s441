@@ -60,6 +60,10 @@ socket.on('newChannel', ({ data: { attributes } }) => {
   store.dispatch(actions.addChannel({ channel }));
 });
 
+socket.on('removeChannel', ({ data: { id } }) => {
+  store.dispatch(actions.deleteChannel({ id }));
+});
+
 const container = document.querySelector('#chat');
 ReactDOM.render(
   <Provider store={store}>

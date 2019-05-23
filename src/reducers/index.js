@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { reducer as formReducer } from 'redux-form';
+import _ from 'lodash';
 import * as actions from '../actions';
 
 const channels = handleActions({
@@ -12,6 +13,14 @@ const channels = handleActions({
         [channel.id]: channel,
       },
       allIds: [...allIds, channel.id],
+      currentChannelId,
+    };
+  },
+  [actions.deleteChannel](state, { payload: { id } }) {
+    const { byId, allIds, currentChannelId } = state;
+    return {
+      byId: _.omit(byId, id),
+      allIds: allIds.filter(channelId => channelId !== id),
       currentChannelId,
     };
   },
