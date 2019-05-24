@@ -45,12 +45,13 @@ const messages = handleActions({
 }, { byId: {}, allIds: [] });
 
 const modals = handleActions({
-  [actions.handleModal](state, { payload: { status } }) {
+  [actions.handleModal](state, { payload: { status, info } }) {
     return {
       status,
+      info,
     };
   },
-}, { status: false });
+}, { status: false, info: {} });
 
 export default combineReducers({
   channels,

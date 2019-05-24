@@ -56,12 +56,13 @@ socket.on('newMessage', ({ data: { attributes } }) => {
 
 socket.on('newChannel', ({ data: { attributes } }) => {
   const channel = { ...attributes };
-  store.dispatch(actions.handleModal({ status: false }));
   store.dispatch(actions.addChannel({ channel }));
+  store.dispatch(actions.handleModal({ status: false, info: {} }));
 });
 
 socket.on('removeChannel', ({ data: { id } }) => {
   store.dispatch(actions.deleteChannel({ id }));
+  store.dispatch(actions.handleModal({ status: false, info: {} }));
 });
 
 const container = document.querySelector('#chat');

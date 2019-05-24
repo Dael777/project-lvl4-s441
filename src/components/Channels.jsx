@@ -2,7 +2,6 @@ import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { FaPen, FaRegTimesCircle } from 'react-icons/fa';
-import axios from 'axios';
 import * as actions from '../actions';
 import { channelsSelector } from '../selectors';
 
@@ -16,6 +15,7 @@ const mapStateToProps = (state) => {
 
 const actionCreators = {
   changeChannel: actions.changeChannel,
+  handleModal: actions.handleModal,
 };
 
 @connect(mapStateToProps, actionCreators)
@@ -25,12 +25,16 @@ class Channels extends React.Component {
     changeChannel({ channelId });
   }
 
-  removeChannelHandle = id => async () => {
-    try {
-      await axios.delete(`/api/v1/channels/${id}`);
-    } catch (error) {
-      throw error;
-    }
+  handleOpen = id => (e) => {
+    e.stopPropagation();
+    const { handleModal } = this.props;
+    handleModal({
+      status: true,
+      info: {
+        type: 'deleteChannel',
+        id,
+      },
+    });
   }
 
   render() {
@@ -41,7 +45,7 @@ class Channels extends React.Component {
           <div>{channel.name}</div>
           <div>
             <FaPen className="ml-1 mr-1" />
-            { channel.removable && <FaRegTimesCircle className="ml-1 mr-1" onClick={this.removeChannelHandle(channel.id)} /> }
+            { channel.removable && <FaRegTimesCircle className="ml-1 mr-1" onClick={this.handleOpen(channel.id)} /> }
           </div>
         </div>
       </ListGroup.Item>

@@ -8,6 +8,7 @@ import Channels from './Channels';
 import Messages from './Messages';
 import NewChannel from './NewChannel';
 import NewMessageForm from './NewMessageForm';
+import ModalWindow from './ModalWindow';
 
 const mapStateToProps = (state) => {
   const props = {
@@ -21,20 +22,23 @@ const mapStateToProps = (state) => {
 class App extends React.Component {
   render() {
     return (
-      <Container>
-        <Row>
-          <Col xs={4}>
-            <ListGroup as="ul">
-              <Channels />
-              <NewChannel />
-            </ListGroup>
-          </Col>
-          <Col xs={8}>
-            <Messages />
-            <NewMessageForm />
-          </Col>
-        </Row>
-      </Container>
+      <>
+        <Container>
+          <Row>
+            <Col xs={4}>
+              <ListGroup as="ul">
+                <Channels />
+                <NewChannel />
+              </ListGroup>
+            </Col>
+            <Col xs={8}>
+              <Messages />
+              <NewMessageForm />
+            </Col>
+          </Row>
+        </Container>
+        <ModalWindow />
+      </>
     );
   }
 }
