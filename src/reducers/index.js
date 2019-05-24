@@ -16,6 +16,17 @@ const channels = handleActions({
       currentChannelId,
     };
   },
+  [actions.renameChannel](state, { payload: { channel } }) {
+    const { byId, allIds, currentChannelId } = state;
+    return {
+      byId: {
+        ...byId,
+        [channel.id]: channel,
+      },
+      allIds: [...allIds],
+      currentChannelId,
+    };
+  },
   [actions.deleteChannel](state, { payload: { id } }) {
     const { byId, allIds, currentChannelId } = state;
     return {

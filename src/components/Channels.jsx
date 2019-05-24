@@ -25,7 +25,20 @@ class Channels extends React.Component {
     changeChannel({ channelId });
   }
 
-  handleOpen = id => (e) => {
+  renameChannelModal = (id, name) => (e) => {
+    e.stopPropagation();
+    const { handleModal } = this.props;
+    handleModal({
+      status: true,
+      info: {
+        type: 'renameChannel',
+        id,
+        name,
+      },
+    });
+  }
+
+  deleteChannelModal = id => (e) => {
     e.stopPropagation();
     const { handleModal } = this.props;
     handleModal({
@@ -44,8 +57,8 @@ class Channels extends React.Component {
         <div className="d-flex align-items-center justify-content-between">
           <div>{channel.name}</div>
           <div>
-            <FaPen className="ml-1 mr-1" />
-            { channel.removable && <FaRegTimesCircle className="ml-1 mr-1" onClick={this.handleOpen(channel.id)} /> }
+            <FaPen className="ml-1 mr-1" onClick={this.renameChannelModal(channel.id, channel.name)} />
+            { channel.removable && <FaRegTimesCircle className="ml-1 mr-1" onClick={this.deleteChannelModal(channel.id)} /> }
           </div>
         </div>
       </ListGroup.Item>

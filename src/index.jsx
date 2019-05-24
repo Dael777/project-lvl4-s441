@@ -60,6 +60,12 @@ socket.on('newChannel', ({ data: { attributes } }) => {
   store.dispatch(actions.handleModal({ status: false, info: {} }));
 });
 
+socket.on('renameChannel', ({ data: { attributes } }) => {
+  const channel = { ...attributes };
+  store.dispatch(actions.renameChannel({ channel }));
+  store.dispatch(actions.handleModal({ status: false, info: {} }));
+});
+
 socket.on('removeChannel', ({ data: { id } }) => {
   store.dispatch(actions.deleteChannel({ id }));
   store.dispatch(actions.handleModal({ status: false, info: {} }));

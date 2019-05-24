@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import * as actions from '../actions';
 import AddChannelModal from './modals/AddChannelModal';
+import RenameChannelModal from './modals/RenameChannelModal';
 import DeleteChannelModal from './modals/DeleteChannelModal';
 
 const mapStateToProps = state => state.modals;
@@ -26,6 +27,7 @@ class ModalWindow extends React.Component {
     return (
       <Modal show={status} onHide={this.handleClose}>
         { info.type === 'addChannel' && <AddChannelModal close={this.handleClose} /> }
+        { info.type === 'renameChannel' && <RenameChannelModal close={this.handleClose} /> }
         { info.type === 'deleteChannel' && <DeleteChannelModal close={this.handleClose} /> }
       </Modal>
     );
