@@ -49,8 +49,8 @@ class RenameChannelModal extends React.Component {
             </Col>
             <Col xs={12}>
               <Modal.Footer>
-                <Button variant="secondary" onClick={close}>Close</Button>
-                <Button variant="primary" type="submit">Delete</Button>
+                <Button variant="secondary" onClick={close}>Cancel</Button>
+                <Button variant="primary" type="submit">Rename</Button>
               </Modal.Footer>
             </Col>
           </Row>
