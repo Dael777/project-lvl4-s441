@@ -23,15 +23,15 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Container>
+        <Container className="vh-100">
           <Row>
-            <Col xs={4}>
-              <ListGroup as="ul">
+            <Col xs={4} className="bg-dark">
+              <ListGroup as="ul" className="mt-3">
                 <Channels />
                 <NewChannel />
               </ListGroup>
             </Col>
-            <Col xs={8}>
+            <Col xs={8} className="d-flex flex-column vh-100 bg-light">
               <Messages />
               <NewMessageForm />
             </Col>

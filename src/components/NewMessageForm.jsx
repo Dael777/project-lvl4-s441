@@ -38,13 +38,14 @@ class NewMessageForm extends React.Component {
       btn: true,
       'btn-primary': true,
       'btn-sm': true,
+      'w-25': true,
       disabled: submitting,
     });
     return (
       <UserNameContext.Consumer>
         { ({ userName }) => (
-          <form className="form-inline" onSubmit={handleSubmit(this.createMessage(userName))}>
-            <Field name="text" className="form" required component="input" type="text" />
+          <form className="form-inline mt-auto mb-3" onSubmit={handleSubmit(this.createMessage(userName))}>
+            <Field name="text" className="form w-75" required component="input" type="text" />
             <input type="submit" className={inputClasses} value="Send" />
           </form>
         )}

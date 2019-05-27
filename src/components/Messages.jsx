@@ -14,7 +14,7 @@ class Messages extends React.Component {
   render() {
     const { messages } = this.props;
     return (
-      <div>
+      <div className="h-100 pt-3">
         {messages.map(message => (
           <div key={message.id}>
             <strong>

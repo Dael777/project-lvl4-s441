@@ -26,7 +26,7 @@ class NewChannel extends React.Component {
   render() {
     return (
       <>
-        <Button variant="outline-info" className="mt-4" onClick={this.handleOpen}>Add new channel</Button>
+        <Button variant="success" className="mt-4" onClick={this.handleOpen}>Add new channel</Button>
       </>
     );
   }
