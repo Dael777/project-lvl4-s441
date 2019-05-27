@@ -5,6 +5,7 @@ import {
   Container, Col, Row, Button, Modal,
 } from 'react-bootstrap';
 import axios from 'axios';
+import { addChannelRoute } from '../../routes';
 
 const mapStateToProps = state => state.modals;
 
@@ -14,7 +15,7 @@ class AddChannelModal extends React.Component {
   createChannel = async ({ text }) => {
     const { reset } = this.props;
     try {
-      await axios.post('/api/v1/channels', {
+      await axios.post(addChannelRoute(), {
         data: {
           attributes: {
             name: text,

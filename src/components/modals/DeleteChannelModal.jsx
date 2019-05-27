@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import axios from 'axios';
 import * as actions from '../../actions';
+import { channelRouteId } from '../../routes';
 
 const mapStateToProps = (state) => {
   const props = {
@@ -26,7 +27,7 @@ class DeleteChannelModal extends React.Component {
   deleteChannelHandle = id => async () => {
     const { currentChannelId, changeChannel } = this.props;
     try {
-      await axios.delete(`/api/v1/channels/${id}`);
+      await axios.delete(channelRouteId(id));
       if (currentChannelId === id) {
         changeChannel({ channelId: 1 });
       }

@@ -5,6 +5,7 @@ import {
   Container, Col, Row, Button, Modal,
 } from 'react-bootstrap';
 import axios from 'axios';
+import { channelRouteId } from '../../routes';
 
 const mapStateToProps = (state) => {
   const props = {
@@ -19,7 +20,7 @@ const mapStateToProps = (state) => {
 class RenameChannelModal extends React.Component {
   renameChannelHandle = id => async ({ text }) => {
     try {
-      await axios.patch(`/api/v1/channels/${id}`, {
+      await axios.patch(channelRouteId(id), {
         data: {
           attributes: {
             name: text,

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import cn from 'classnames';
 import UserNameContext from '..';
+import { newMessageRoute } from '../../routes';
 
 const mapStateToProps = (state) => {
   const props = {
@@ -18,7 +19,7 @@ class NewMessageForm extends React.Component {
   createMessage = userName => async ({ text }) => {
     const { currentChannelId, reset } = this.props;
     try {
-      await axios.post(`/api/v1/channels/${currentChannelId}/messages`, {
+      await axios.post(newMessageRoute(currentChannelId), {
         data: {
           attributes: {
             message: text,
