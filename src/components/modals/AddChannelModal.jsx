@@ -5,7 +5,7 @@ import {
   Container, Col, Row, Button, Modal,
 } from 'react-bootstrap';
 import axios from 'axios';
-import { addChannelRoute } from '../../routes';
+import { addChannelRoute } from '../../routes.js';
 
 const mapStateToProps = state => state.modals;
 

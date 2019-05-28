@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import cn from 'classnames';
 import UserNameContext from '..';
-import { newMessageRoute } from '../../routes';
+import { newMessageRoute } from '../../routes.js';
 
 const mapStateToProps = (state) => {
   const props = {
