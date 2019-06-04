@@ -18,12 +18,17 @@ const mapStateToProps = (state) => {
 @reduxForm({ form: 'renameChannel' })
 @connect(mapStateToProps)
 class RenameChannelModal extends React.Component {
-  renameChannelHandle = id => async ({ text }) => {
+  componentWillMount = () => {
+    const { initialize, info } = this.props;
+    initialize({ newName: info.name });
+  }
+
+  renameChannelHandle = id => async ({ newName }) => {
     try {
       await axios.patch(channelRouteId(id), {
         data: {
           attributes: {
-            name: text,
+            name: newName,
           },
         },
       });
@@ -45,7 +50,7 @@ class RenameChannelModal extends React.Component {
             </Col>
             <Col xs={12}>
               <Modal.Body>
-                <Field name="text" className="form w-100" required component="input" type="text" placeholder="enter the name" />
+                <Field name="newName" className="form w-100" required component="input" type="text" />
               </Modal.Body>
             </Col>
             <Col xs={12}>

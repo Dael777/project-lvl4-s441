@@ -21,9 +21,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 const { channels, messages, currentChannelId } = gon;
 const initialAllids = channels.map(channel => channel.id);
-const initialChannels = _.zipObject(initialAllids, channels);
+const initialChannels = _.keyBy(channels, 'id');
 const initialMessagesIds = messages.map(message => message.id);
-const initialMessages = _.zipObject(initialMessagesIds, messages);
+const initialMessages = _.keyBy(messages, 'id');
 
 const registeredUsername = cookies.get('name');
 const userName = !registeredUsername ? faker.name.findName() : registeredUsername;
