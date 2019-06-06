@@ -4,6 +4,54 @@ import { reducer as formReducer } from 'redux-form';
 import _ from 'lodash';
 import * as actions from '../actions';
 
+const messageAddingState = handleActions({
+  [actions.createMessageRequest]() {
+    return 'message creating requested';
+  },
+  [actions.createMessageFailure]() {
+    return 'message creating failed';
+  },
+  [actions.addMessage]() {
+    return 'message added';
+  },
+}, 'none');
+
+const channelAddingState = handleActions({
+  [actions.createChannelRequest]() {
+    return 'channel creating requested';
+  },
+  [actions.createChannelFailure]() {
+    return 'channel creating failed';
+  },
+  [actions.addChannel]() {
+    return 'channel added';
+  },
+}, 'none');
+
+const channelDeletionState = handleActions({
+  [actions.deleteChannelRequest]() {
+    return 'channel deletion requested';
+  },
+  [actions.deleteChannelFailure]() {
+    return 'channel deletion failed';
+  },
+  [actions.deleteChannel]() {
+    return 'channel deleted';
+  },
+}, 'none');
+
+const channelRenameState = handleActions({
+  [actions.renameChannelRequest]() {
+    return 'channel renaming requested';
+  },
+  [actions.renameChannelFailure]() {
+    return 'channel renaming failed';
+  },
+  [actions.renameChannel]() {
+    return 'channel renamed';
+  },
+}, 'none');
+
 const channels = handleActions({
   [actions.addChannel](state, { payload: { channel } }) {
     const { byId, allIds, currentChannelId } = state;
@@ -75,6 +123,10 @@ const modals = handleActions({
 export default combineReducers({
   channels,
   messages,
+  messageAddingState,
+  channelAddingState,
+  channelDeletionState,
+  channelRenameState,
   modals,
   form: formReducer,
 });

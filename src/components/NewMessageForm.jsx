@@ -1,10 +1,9 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import cn from 'classnames';
 import UserNameContext from '..';
-import { newMessageRoute } from '../routes';
+import * as actions from '../actions';
 
 const mapStateToProps = (state) => {
   const props = {
@@ -13,23 +12,16 @@ const mapStateToProps = (state) => {
   return props;
 };
 
+const actionCreators = {
+  createMessage: actions.createMessage,
+};
+
 @reduxForm({ form: 'newMessage' })
-@connect(mapStateToProps)
+@connect(mapStateToProps, actionCreators)
 class NewMessageForm extends React.Component {
-  createMessage = userName => async ({ text }) => {
-    const { currentChannelId, reset } = this.props;
-    try {
-      await axios.post(newMessageRoute(currentChannelId), {
-        data: {
-          attributes: {
-            message: text,
-            author: userName,
-          },
-        },
-      });
-    } catch (error) {
-      throw error;
-    }
+  createMessage = userName => (text) => {
+    const { createMessage, currentChannelId, reset } = this.props;
+    createMessage(currentChannelId, userName, text);
     reset();
   };
 

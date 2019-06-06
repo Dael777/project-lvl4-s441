@@ -4,9 +4,7 @@ import { reduxForm } from 'redux-form';
 import {
   Container, Col, Row, Button, Modal,
 } from 'react-bootstrap';
-import axios from 'axios';
 import * as actions from '../../actions';
-import { channelRouteId } from '../../routes';
 
 const mapStateToProps = (state) => {
   const props = {
@@ -18,28 +16,21 @@ const mapStateToProps = (state) => {
 };
 
 const actionCreators = {
-  changeChannel: actions.changeChannel,
+  removeChannel: actions.removeChannel,
 };
 
 @reduxForm({ form: 'deleteChannel' })
 @connect(mapStateToProps, actionCreators)
 class DeleteChannelModal extends React.Component {
-  deleteChannelHandle = id => async () => {
-    const { currentChannelId, changeChannel } = this.props;
-    try {
-      await axios.delete(channelRouteId(id));
-      if (currentChannelId === id) {
-        changeChannel({ channelId: 1 });
-      }
-    } catch (error) {
-      throw error;
-    }
+  removeChannel = id => () => {
+    const { currentChannelId, removeChannel } = this.props;
+    removeChannel(id, currentChannelId);
   }
 
   render() {
     const { handleSubmit, close, info } = this.props;
     return (
-      <form className="form-inline" onSubmit={handleSubmit(this.deleteChannelHandle(info.id))}>
+      <form className="form-inline" onSubmit={handleSubmit(this.removeChannel(info.id))}>
         <Container>
           <Row>
             <Col xs={12}>

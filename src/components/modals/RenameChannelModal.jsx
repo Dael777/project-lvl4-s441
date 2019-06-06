@@ -4,8 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import {
   Container, Col, Row, Button, Modal,
 } from 'react-bootstrap';
-import axios from 'axios';
-import { channelRouteId } from '../../routes';
+import * as actions from '../../actions';
 
 const mapStateToProps = (state) => {
   const props = {
@@ -15,26 +14,21 @@ const mapStateToProps = (state) => {
   return props;
 };
 
+const actionCreators = {
+  renameChannelHandle: actions.renameChannelHandle,
+};
+
 @reduxForm({ form: 'renameChannel' })
-@connect(mapStateToProps)
+@connect(mapStateToProps, actionCreators)
 class RenameChannelModal extends React.Component {
   componentWillMount = () => {
     const { initialize, info } = this.props;
     initialize({ newName: info.name });
   }
 
-  renameChannelHandle = id => async ({ newName }) => {
-    try {
-      await axios.patch(channelRouteId(id), {
-        data: {
-          attributes: {
-            name: newName,
-          },
-        },
-      });
-    } catch (error) {
-      throw error;
-    }
+  renameChannelHandle = id => ({ newName }) => {
+    const { renameChannelHandle } = this.props;
+    renameChannelHandle(id, newName);
   }
 
   render() {

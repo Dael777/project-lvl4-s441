@@ -4,27 +4,20 @@ import { Field, reduxForm } from 'redux-form';
 import {
   Container, Col, Row, Button, Modal,
 } from 'react-bootstrap';
-import axios from 'axios';
-import { addChannelRoute } from '../../routes';
+import * as actions from '../../actions';
 
 const mapStateToProps = state => state.modals;
 
+const actionCreators = {
+  createChannel: actions.createChannel,
+};
+
 @reduxForm({ form: 'addChannel' })
-@connect(mapStateToProps)
+@connect(mapStateToProps, actionCreators)
 class AddChannelModal extends React.Component {
-  createChannel = async ({ text }) => {
-    const { reset } = this.props;
-    try {
-      await axios.post(addChannelRoute(), {
-        data: {
-          attributes: {
-            name: text,
-          },
-        },
-      });
-    } catch (error) {
-      throw error;
-    }
+  createChannel = (text) => {
+    const { createChannel, reset } = this.props;
+    createChannel(text);
     reset();
   };
 
