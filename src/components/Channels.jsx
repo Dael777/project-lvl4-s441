@@ -4,27 +4,22 @@ import { connect } from 'react-redux';
 import { FaPen, FaRegTimesCircle } from 'react-icons/fa';
 import * as actions from '../actions';
 import { channelsSelector } from '../selectors';
+import withActive from '../hoc/withActive';
 
 const mapStateToProps = (state) => {
   const props = {
     channels: channelsSelector(state),
-    currentChannelId: state.channels.currentChannelId,
   };
   return props;
 };
 
 const actionCreators = {
-  changeChannel: actions.changeChannel,
   handleModal: actions.handleModal,
 };
 
 @connect(mapStateToProps, actionCreators)
+@withActive()
 class Channels extends React.Component {
-  changeChannelHandle = channelId => () => {
-    const { changeChannel } = this.props;
-    changeChannel({ channelId });
-  }
-
   renameChannelModal = (id, name) => (e) => {
     e.stopPropagation();
     const { handleModal } = this.props;
@@ -51,9 +46,9 @@ class Channels extends React.Component {
   }
 
   render() {
-    const { channels, currentChannelId } = this.props;
+    const { channels, active, setActive } = this.props;
     return channels.map(channel => (
-      <ListGroup.Item as="li" key={channel.id} active={channel.id === currentChannelId} onClick={this.changeChannelHandle(channel.id)}>
+      <ListGroup.Item as="li" key={channel.id} active={active === channel.id} onClick={setActive(channel.id)}>
         <div className="d-flex align-items-center justify-content-between">
           <div>{channel.name}</div>
           <div>

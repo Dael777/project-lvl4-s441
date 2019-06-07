@@ -20,7 +20,6 @@ export const createMessage = (currentChannelId, userName, { text }) => async (di
     });
   } catch (error) {
     dispatch(createMessageFailure({ text }));
-    throw error;
   }
 };
 
@@ -39,7 +38,6 @@ export const createChannel = ({ text }) => async (dispatch) => {
     });
   } catch (error) {
     dispatch(createChannelFailure({ text }));
-    throw error;
   }
 };
 
@@ -54,8 +52,7 @@ export const removeChannel = (id, currentChannelId) => async (dispatch) => {
       dispatch(changeChannel({ channelId: 1 }));
     }
   } catch (error) {
-    dispatch(deleteChannelFailure());
-    throw error;
+    dispatch(deleteChannelFailure({ id }));
   }
 };
 
@@ -73,8 +70,7 @@ export const renameChannelHandle = (id, newName) => async (dispatch) => {
       },
     });
   } catch (error) {
-    dispatch(renameChannelFailure());
-    throw error;
+    dispatch(renameChannelFailure({ newName }));
   }
 };
 

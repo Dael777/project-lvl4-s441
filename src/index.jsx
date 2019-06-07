@@ -1,8 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/application.css';
-import faker from 'faker';
 import gon from 'gon';
-import cookies from 'js-cookie';
 import io from 'socket.io-client';
 import _ from 'lodash';
 import React from 'react';
@@ -11,8 +9,11 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import faker from 'faker';
+import cookies from 'js-cookie';
 import * as actions from './actions';
 import reducers from './reducers';
+import UserNameContext from './UserNameContext';
 import App from './components/App';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -30,9 +31,6 @@ const userName = !registeredUsername ? faker.name.findName() : registeredUsernam
 if (registeredUsername === undefined) {
   cookies.set('name', userName);
 }
-
-const UserNameContext = React.createContext({ userName });
-export default UserNameContext;
 
 /* eslint-disable no-underscore-dangle */
 const store = createStore(

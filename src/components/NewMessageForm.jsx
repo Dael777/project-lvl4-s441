@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import cn from 'classnames';
-import UserNameContext from '..';
+import UserNameContext from '../UserNameContext';
 import * as actions from '../actions';
 
 const mapStateToProps = (state) => {
