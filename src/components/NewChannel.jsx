@@ -1,17 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Button } from 'react-bootstrap';
-import * as actions from '../actions';
+import connect from '../connect';
 
 const mapStateToProps = state => state.modals;
 
-const actionCreators = {
-  handleModal: actions.handleModal,
-};
-
 @reduxForm({ form: 'newChannel' })
-@connect(mapStateToProps, actionCreators)
+@connect(mapStateToProps)
 class NewChannel extends React.Component {
   handleOpen = () => {
     const { handleModal } = this.props;

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
 import cn from 'classnames';
 import UserNameContext from '../UserNameContext';
-import * as actions from '../actions';
+import connect from '../connect';
 
 const mapStateToProps = (state) => {
   const props = {
@@ -12,12 +11,8 @@ const mapStateToProps = (state) => {
   return props;
 };
 
-const actionCreators = {
-  createMessage: actions.createMessage,
-};
-
 @reduxForm({ form: 'newMessage' })
-@connect(mapStateToProps, actionCreators)
+@connect(mapStateToProps)
 class NewMessageForm extends React.Component {
   createMessage = userName => (text) => {
     const { createMessage, currentChannelId, reset } = this.props;

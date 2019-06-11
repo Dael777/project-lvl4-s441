@@ -1,18 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
-import * as actions from '../actions';
+import connect from '../connect';
 import AddChannelModal from './modals/AddChannelModal';
 import RenameChannelModal from './modals/RenameChannelModal';
 import DeleteChannelModal from './modals/DeleteChannelModal';
 
 const mapStateToProps = state => state.modals;
 
-const actionCreators = {
-  handleModal: actions.handleModal,
-};
-
-@connect(mapStateToProps, actionCreators)
+@connect(mapStateToProps)
 class ModalWindow extends React.Component {
   handleClose = () => {
     const { handleModal } = this.props;
