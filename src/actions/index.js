@@ -2,6 +2,8 @@ import { createAction } from 'redux-actions';
 import axios from 'axios';
 import { newMessageRoute, addChannelRoute, channelRouteId } from '../routes';
 
+const defaultChannelId = 1;
+
 export const changeChannel = createAction('CHANNEL_CHANGE');
 
 export const createMessageRequest = createAction('MESSAGE_CREATE_REQUEST');
@@ -49,7 +51,7 @@ export const removeChannel = (id, currentChannelId) => async (dispatch) => {
   try {
     await axios.delete(channelRouteId(id));
     if (currentChannelId === id) {
-      dispatch(changeChannel({ channelId: 1 }));
+      dispatch(changeChannel({ channelId: defaultChannelId }));
     }
   } catch (error) {
     dispatch(deleteChannelFailure({ id }));

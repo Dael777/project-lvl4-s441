@@ -72,7 +72,7 @@ socket.on('removeChannel', ({ data: { id } }) => {
 const container = document.querySelector('#chat');
 ReactDOM.render(
   <Provider store={store}>
-    <UserNameContext.Provider value={{ userName }}>
+    <UserNameContext.Provider value={userName}>
       <App />
     </UserNameContext.Provider>
   </Provider>,

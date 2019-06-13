@@ -14,6 +14,8 @@ const mapStateToProps = (state) => {
 @reduxForm({ form: 'newMessage' })
 @connect(mapStateToProps)
 class NewMessageForm extends React.Component {
+  static contextType = UserNameContext;
+
   createMessage = userName => (text) => {
     const { createMessage, currentChannelId, reset } = this.props;
     createMessage(currentChannelId, userName, text);
@@ -30,14 +32,10 @@ class NewMessageForm extends React.Component {
       disabled: submitting,
     });
     return (
-      <UserNameContext.Consumer>
-        { ({ userName }) => (
-          <form className="form-inline mt-auto mb-3" onSubmit={handleSubmit(this.createMessage(userName))}>
-            <Field name="text" className="form w-75" required component="input" type="text" />
-            <input type="submit" className={inputClasses} value="Send" />
-          </form>
-        )}
-      </UserNameContext.Consumer>
+      <form className="form-inline mt-auto mb-3" onSubmit={handleSubmit(this.createMessage(this.context))}>
+        <Field name="text" className="form w-75" required component="input" type="text" />
+        <input type="submit" className={inputClasses} value="Send" />
+      </form>
     );
   }
 }

@@ -1,31 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import {
   Container, Col, Row, Button, Modal,
 } from 'react-bootstrap';
-import * as actions from '../../actions';
+import connect from '../../connect';
 
 const mapStateToProps = (state) => {
   const props = {
     status: state.modals.status,
     info: state.modals.info,
+    initialValues: { newName: state.modals.info.name },
   };
   return props;
 };
 
-const actionCreators = {
-  renameChannelHandle: actions.renameChannelHandle,
-};
-
-@reduxForm({ form: 'renameChannel' })
-@connect(mapStateToProps, actionCreators)
+@connect(mapStateToProps)
+@reduxForm({ form: 'renameChannel', enableReinitialize: true })
 class RenameChannelModal extends React.Component {
-  componentWillMount = () => {
-    const { initialize, info } = this.props;
-    initialize({ newName: info.name });
-  }
-
   renameChannelHandle = id => ({ newName }) => {
     const { renameChannelHandle } = this.props;
     renameChannelHandle(id, newName);
