@@ -1,19 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { withTranslation } from 'react-i18next';
 import {
   Container, Col, Row, Button, Modal,
 } from 'react-bootstrap';
-import * as actions from '../../actions';
+import connect from '../../connect';
 
-const mapStateToProps = state => state.modals;
-
-const actionCreators = {
-  createChannel: actions.createChannel,
+const mapStateToProps = (state) => {
+  const props = {
+    channelAddingState: state.channelAddingState,
+  };
+  return props;
 };
 
+@connect(mapStateToProps)
 @reduxForm({ form: 'addChannel' })
-@connect(mapStateToProps, actionCreators)
+@withTranslation()
 class AddChannelModal extends React.Component {
   createChannel = (text) => {
     const { createChannel, reset } = this.props;
@@ -22,7 +24,13 @@ class AddChannelModal extends React.Component {
   };
 
   render() {
-    const { handleSubmit, close } = this.props;
+    const {
+      handleSubmit,
+      close,
+      channelAddingState,
+      t,
+    } = this.props;
+
     return (
       <form className="form-inline" onSubmit={handleSubmit(this.createChannel)}>
         <Container>
@@ -35,6 +43,7 @@ class AddChannelModal extends React.Component {
             <Col xs={12}>
               <Modal.Body>
                 <Field name="text" className="form w-100" required component="input" type="text" placeholder="enter the name" />
+                <div className="text-danger">{ channelAddingState === 'failed' && t('channelAddingFail') }</div>
               </Modal.Body>
             </Col>
             <Col xs={12}>

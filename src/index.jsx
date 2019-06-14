@@ -15,6 +15,7 @@ import * as actions from './actions';
 import reducers from './reducers';
 import UserNameContext from './UserNameContext';
 import App from './components/App';
+import './i18n';
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';

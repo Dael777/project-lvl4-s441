@@ -1,26 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { withTranslation } from 'react-i18next';
 import {
   Container, Col, Row, Button, Modal,
 } from 'react-bootstrap';
-import * as actions from '../../actions';
+import connect from '../../connect';
 
 const mapStateToProps = (state) => {
   const props = {
     status: state.modals.status,
     info: state.modals.info,
     currentChannelId: state.channels.currentChannelId,
+    channelDeletionState: state.channelDeletionState,
   };
   return props;
 };
 
-const actionCreators = {
-  removeChannel: actions.removeChannel,
-};
-
+@connect(mapStateToProps)
 @reduxForm({ form: 'deleteChannel' })
-@connect(mapStateToProps, actionCreators)
+@withTranslation()
 class DeleteChannelModal extends React.Component {
   removeChannel = id => () => {
     const { currentChannelId, removeChannel } = this.props;
@@ -28,7 +26,14 @@ class DeleteChannelModal extends React.Component {
   }
 
   render() {
-    const { handleSubmit, close, info } = this.props;
+    const {
+      handleSubmit,
+      close,
+      info,
+      channelDeletionState,
+      t,
+    } = this.props;
+
     return (
       <form className="form-inline" onSubmit={handleSubmit(this.removeChannel(info.id))}>
         <Container>
@@ -39,7 +44,10 @@ class DeleteChannelModal extends React.Component {
               </Modal.Header>
             </Col>
             <Col xs={12}>
-              <Modal.Body>Are you really want to delete this channel?</Modal.Body>
+              <Modal.Body>
+                <div>Are you really want to delete this channel?</div>
+                <div className="text-danger">{ channelDeletionState === 'failed' && t('channelDeletionFail') }</div>
+              </Modal.Body>
             </Col>
             <Col xs={12}>
               <Modal.Footer>

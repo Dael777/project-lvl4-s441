@@ -6,49 +6,49 @@ import * as actions from '../actions';
 
 const messageAddingState = handleActions({
   [actions.createMessageRequest]() {
-    return 'message creating requested';
+    return 'requested';
   },
   [actions.createMessageFailure]() {
-    return 'message creating failed';
+    return 'failed';
   },
   [actions.addMessage]() {
-    return 'message added';
+    return 'added';
   },
 }, 'none');
 
 const channelAddingState = handleActions({
   [actions.createChannelRequest]() {
-    return 'channel creating requested';
+    return 'requested';
   },
   [actions.createChannelFailure]() {
-    return 'channel creating failed';
+    return 'failed';
   },
   [actions.addChannel]() {
-    return 'channel added';
+    return 'added';
   },
 }, 'none');
 
 const channelDeletionState = handleActions({
   [actions.deleteChannelRequest]() {
-    return 'channel deletion requested';
+    return 'requested';
   },
   [actions.deleteChannelFailure]() {
-    return 'channel deletion failed';
+    return 'failed';
   },
   [actions.deleteChannel]() {
-    return 'channel deleted';
+    return 'deleted';
   },
 }, 'none');
 
 const channelRenameState = handleActions({
   [actions.renameChannelRequest]() {
-    return 'channel renaming requested';
+    return 'requested';
   },
   [actions.renameChannelFailure]() {
-    return 'channel renaming failed';
+    return 'failed';
   },
   [actions.renameChannel]() {
-    return 'channel renamed';
+    return 'renamed';
   },
 }, 'none');
 
