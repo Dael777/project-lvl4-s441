@@ -1,3 +1,5 @@
+<h1>Chat</h1>
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/794d046ab8b7074b74f2/maintainability)](https://codeclimate.com/github/Dael777/Chat/maintainability)
 [![Build Status](https://travis-ci.org/Dael777/Chat.svg?branch=master)](https://travis-ci.org/Dael777/Chat)
 
